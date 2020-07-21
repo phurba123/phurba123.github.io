@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    background-color:rgba(0,0,0,0.8);
+    color: rgb(255, 255, 255);
+}
+
+.main-font-size
+{
+    font-size: 2rem;
+}
+
+.secondary-font-size
+{
+    font-size: 1rem;
+}

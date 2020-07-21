@@ -1,0 +1,9 @@
+/* custom simple nav */
+
+#my-nav
+{
+    height: 8vh;
+    background-color: rgba(200,0,0,0.8);
+    padding: 2vh 0 0 1vw;
+    font-size: 24px;
+}
