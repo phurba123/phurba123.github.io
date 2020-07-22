@@ -13,12 +13,19 @@ body
     color: rgb(255, 255, 255);
 }
 
-.main-font-size
+.main-font
 {
     font-size: 2rem;
+    text-shadow: 3px 4px 7px rgba(0,0,0,0.9);
+    /* text-shadow: 2px 2px 3px white; */
 }
 
-.secondary-font-size
+.secondary-font
 {
     font-size: 1rem;
+}
+
+.my-box-shadow
+{
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.9);
 }

@@ -1,8 +1,23 @@
 <header>
-    <p class="main-font-size">Let's checkout foods</p>
+    <p class="main-font">Let's checkout food related images</p>
 </header>
 
 <!-- displaying images of foods -->
-<main>
-    
+<!-- grid container for displaying images -->
+<main *ngIf="photos">
+    <!-- each grid item -->
+    <div class="container my-box-shadow" *ngFor="let photo of photos">
+
+        <!-- elements in a grid -->
+        <a (click)="navigateToImage(photo)" *ngIf="photo.url">
+            <img [src]="photo.url" alt="skip" (click)="consoler()">
+        </a>
+
+    </div>
 </main>
+
+<!-- buttons for displaying previous and next images -->
+<div id="btn-group">
+    <button [disabled]="initialPageNo===1" (click)="viewPreviousPage()" class="my-box-shadow">prev</button>
+    <button [disabled]="disableNextBtn" (click)="viewNextPage()" class="my-box-shadow">next</button>
+</div>
