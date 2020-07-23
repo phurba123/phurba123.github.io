@@ -18,7 +18,7 @@ export class FoodService {
 
   public getImages(pageNo:number)
   {
-    console.log('inside service : getImages()');
+    // console.log('inside service : getImages()');
     let currentUrl=`${this.url}&method=${this.photoSearchMethod}&api_key=${this.apiKey}&text=food&per_page=30&page=${pageNo}`
 
     return this.http.get(currentUrl)

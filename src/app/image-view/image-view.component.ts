@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router'
+import {ActivatedRoute,Router} from '@angular/router'
 import { FoodService } from '../food.service';
 
 @Component({
@@ -14,14 +14,15 @@ export class ImageViewComponent implements OnInit {
   private reviewerName:string;
   private review:string;
   private radioValue:any;
+  private userReviews:any[]=[];
 
   private radioValues=[1,2,3,4,5,6,7,8,9,10];
 
-  constructor(private route:ActivatedRoute,private foodService:FoodService) { }
+  constructor(private route:ActivatedRoute,private foodService:FoodService,private router:Router) { }
 
   ngOnInit() {
     this.imageId = this.route.snapshot.paramMap.get('imageId');
-    console.log(this.imageId);
+    // console.log(this.imageId);
 
     this.getImageInfo();
   }
@@ -30,7 +31,7 @@ export class ImageViewComponent implements OnInit {
   {
     this.foodService.getImageInfo(this.imageId).subscribe((res)=>
     {
-      console.log(res)
+      // console.log(res)
 
       // storing image info
       this.imageInfo=
@@ -43,7 +44,7 @@ export class ImageViewComponent implements OnInit {
         server:res['photo']['server']
       }
 
-      console.log(this.imageInfo)
+      // console.log(this.imageInfo)
 
       // creating imageUrl
       //https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
@@ -60,12 +61,66 @@ export class ImageViewComponent implements OnInit {
   {
     if(this.radioValue && this.reviewerName && this.review)
     {
-      console.log('submitting form')
-    console.log(this.radioValue)
-    console.log(this.review)
-    console.log(this.reviewerName)
+
+    this.storeUserReview();
     }
     
+  }
+
+  // local storage for storing user review
+  private storeUserReview()
+  {
+    // get local storage reviews and store it in temp variable reviews
+    let reviews = JSON.parse(localStorage.getItem('userReviews'));
+
+    // if no any review is present at this time then set new item on local storage
+    if(!reviews || reviews===undefined || reviews===null)
+    {
+      // console.log('no reviews')
+      let review=
+      {
+        id:this.imageId,
+        radioValue:this.radioValue,
+        reviewerName:this.reviewerName,
+        review:this.review
+      }
+      // console.log(review)
+      this.userReviews.push(review);
+
+      localStorage.setItem('userReviews',JSON.stringify(this.userReviews));
+      this.navigateToHome()
+      
+    }
+    // else,if local storage with userReviews is present already ,then, add new review on it
+    else
+    {
+      this.userReviews= reviews;
+
+      let review=
+      {
+        id:this.imageId,
+        radioValue:this.radioValue,
+        reviewerName:this.reviewerName,
+        review:this.review
+      }
+
+      this.userReviews.push(review);
+
+      // reset local storage
+      localStorage.removeItem('userReviews');
+      localStorage.setItem('userReviews',JSON.stringify(this.userReviews))
+
+      this.navigateToHome();
+    }
+  }
+
+  private navigateToHome()
+  {
+    //navigate to home view
+    setTimeout(()=>
+    {
+      this.router.navigate(['home'])
+    },1000)
   }
 
 }

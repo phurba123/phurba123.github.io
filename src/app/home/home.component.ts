@@ -10,9 +10,13 @@ import {Router} from '@angular/router'
 export class HomeComponent implements OnInit {
 
   private initialPageNo = 1;
-  public photos: any[];
+  public photos: any[]=[];
   private totalPage: number;
   private disableNextBtn:boolean=false;
+
+  private radios = [1,2,3,4,5,6,7,8,9,10];
+
+  private userReviews:any[]=[];
 
   constructor(private foodService: FoodService,
     private router:Router) { }
@@ -21,11 +25,46 @@ export class HomeComponent implements OnInit {
 
     //fetch data for images
     this.getImages();
+    
 
   }
 
+  private checkLocalStorage()
+  {
+    this.userReviews = JSON.parse(localStorage.getItem('userReviews'));
+
+    if(!this.userReviews || this.userReviews===undefined || this.userReviews===null)
+    {
+      // console.log('no local storage') dont do anything
+    }
+    else
+    {
+      // console.log(this.userReviews);
+      this.addReviewToImage();
+    }
+  }
+
+  // adding review to image
+  private addReviewToImage()
+  {
+    // loop through reviews
+    this.userReviews.map((review)=>
+    {
+      // console.log(this.photos)
+      //loop through images
+      this.photos.map((photo)=>
+      {
+        if(review['id'] === photo['id'])
+        {
+          photo.rating=review;
+        }
+      })
+    })
+
+    
+  }
+
   private getImages() {
-    console.log('inside get Images');
     this.foodService.getImages(this.initialPageNo).toPromise().then((res) => {
       if (res['stat'] === "ok") {
         //keeping track of no. of pages
@@ -36,6 +75,7 @@ export class HomeComponent implements OnInit {
 
         //build url for fetching image
         this.buildUrl();
+        this.checkLocalStorage();
       }
     })
 
@@ -57,23 +97,23 @@ export class HomeComponent implements OnInit {
 
   // viewing previous page
   private viewPreviousPage() {
-    console.log('prec');
+    // console.log('prec');
     this.initialPageNo--;
     this.getImages();
 
     // when the next btn is disabled at last page,by clicking prev btn it should re enable next button
     if(this.disableNextBtn)
     {
-      console.log('not')
+      // console.log('not')
       this.disableNextBtn=false;
     }
   }
 
   //viewing next page
   private viewNextPage() {
-    console.log(this.totalPage)
+    // console.log(this.totalPage)
     if (this.initialPageNo < this.totalPage) {
-      console.log('next')
+      // console.log('next')
       this.initialPageNo++;
       this.getImages();
     }
@@ -93,6 +133,33 @@ export class HomeComponent implements OnInit {
     let temp = 'phursang'
     this.router.navigate([`image/${photo.id}`])
 
+  }
+
+  // ngAfterContentChecked()
+  // {
+  //   console.log('ng after content checked')
+  // }
+
+  private resetReviews()
+  {
+    if(this.userReviews)
+    {
+      // remove reviews from local storage
+      localStorage.removeItem('userReviews');
+
+      // remove local variable of reviews
+      this.userReviews=[];
+
+      // remove rating from photos
+      this.photos.map((photo)=>
+      {
+        if(photo.rating)
+        {
+          delete photo.rating;
+        }
+        
+      })
+    }
   }
 
 }
