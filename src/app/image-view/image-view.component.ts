@@ -11,6 +11,11 @@ export class ImageViewComponent implements OnInit {
   private imageId:any;
   private imageInfo:any;
   private imageUrl:any;
+  private reviewerName:string;
+  private review:string;
+  private radioValue:any;
+
+  private radioValues=[1,2,3,4,5,6,7,8,9,10];
 
   constructor(private route:ActivatedRoute,private foodService:FoodService) { }
 
@@ -48,6 +53,19 @@ export class ImageViewComponent implements OnInit {
     {
       console.log('some error occured')
     })
+  }
+
+  // submitting form
+  private submitForm()
+  {
+    if(this.radioValue && this.reviewerName && this.review)
+    {
+      console.log('submitting form')
+    console.log(this.radioValue)
+    console.log(this.review)
+    console.log(this.reviewerName)
+    }
+    
   }
 
 }

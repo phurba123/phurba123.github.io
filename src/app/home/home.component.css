@@ -9,9 +9,9 @@ main
 {
     margin-top: 3vh;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 20px;
-    padding: 10px 20px;
+    padding: 1vw 2vw;
 }
 
 main .container 
@@ -39,7 +39,7 @@ main .container a img
 }
 main .container a img:hover
 {
-    transform: scale(1.08);
+    transform: scale(1.03);
     opacity: 0.8;
 }
 
@@ -64,5 +64,53 @@ main .container a img:hover
 {
     background: rgba(200,0,0,0.5);
 }
+
+/* media queries */
+
+/* for mobiles,small screens */
+@media screen and (max-width:500px)
+{
+    main{
+        grid-template-columns: 1fr;
+    }
+
+    #btn-group > button
+    {
+        width: 25vw;
+    }
+
+    main .container 
+    {
+        height: 30vh;
+    }
+}
+
+/* tablet and high res mobile */
+@media screen and (min-width:501px) and (max-width:768px)
+{
+    main{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    #btn-group > button
+    {
+        width: 20vw;
+    }
+
+
+}
+
+@media screen and (min-width:769px) and (max-width:1200px)
+{
+    /*  */
+    main{
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+/* @media screen and (min-width:1201px)
+{
+} */
+
 
 

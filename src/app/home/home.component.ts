@@ -9,7 +9,6 @@ import {Router} from '@angular/router'
 })
 export class HomeComponent implements OnInit {
 
-  private listOfFoods: any[];
   private initialPageNo = 1;
   public photos: any[];
   private totalPage: number;
@@ -26,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getImages() {
-    // console.log('inside get Images');
+    console.log('inside get Images');
     this.foodService.getImages(this.initialPageNo).toPromise().then((res) => {
       if (res['stat'] === "ok") {
         //keeping track of no. of pages
@@ -39,6 +38,7 @@ export class HomeComponent implements OnInit {
         this.buildUrl();
       }
     })
+
   }
 
   //making photo's url
@@ -88,16 +88,11 @@ export class HomeComponent implements OnInit {
   // navigation to image view
   private navigateToImage(photo)
   {
-    console.log('inside navigate')
-    console.log(photo);
+    // console.log('inside navigate')
+    // console.log(photo);
     let temp = 'phursang'
     this.router.navigate([`image/${photo.id}`])
 
-  }
-
-  private consoler()
-  {
-    console.log('consoler')
   }
 
 }

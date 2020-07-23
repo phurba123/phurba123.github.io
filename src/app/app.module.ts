@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http'
 import { FoodService } from './food.service';
 import { ImageViewComponent } from './image-view/image-view.component';
+import {FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ImageViewComponent } from './image-view/image-view.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [FoodService],
   bootstrap: [AppComponent]

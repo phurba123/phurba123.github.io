@@ -9,11 +9,11 @@
     <div id="image-info" *ngIf="imageInfo">
         <h3 *ngIf="imageInfo.title" class="main-font">{{imageInfo.title}}</h3>
         <!-- if no title is present then display default title -->
-        <h3 *ngIf="!imageInfo.title">Default title of image</h3>
+        <h3 *ngIf="!imageInfo.title" class="main-font">Default title of image</h3>
 
-        <p>{{imageInfo.description}}</p>
+        <p class="secondary-font">{{imageInfo.description}}</p>
         <!-- if no description is present then display default description -->
-        <p *ngIf="!imageInfo.description">This is a default description of image</p>
+        <p *ngIf="!imageInfo.description" class="secondary-font">This is a default description of image</p>
     </div>
 </main>
 
@@ -21,11 +21,11 @@
 <section class="my-box-shadow">
     <h3 class="main-font">Review this image</h3>
 
-    <form>
+    <form (submit)="submitForm()">
         <!-- <label for="rating" hidden>rate</label> -->
         <div id="radio-group">
-            <input type="radio" name="rating" value="1">
-            <input type="radio" name="rating" value="2">
+            <input *ngFor="let value of radioValues" type="radio" name="rating" [value]="value" [(ngModel)]="radioValue" [title]="value">
+            <!-- <input type="radio" name="rating" value="2">
             <input type="radio" name="rating" value="3">
             <input type="radio" name="rating" value="4">
             <input type="radio" name="rating" value="5">
@@ -33,16 +33,16 @@
             <input type="radio" name="rating" value="7">
             <input type="radio" name="rating" value="8">
             <input type="radio" name="rating" value="9">
-            <input type="radio" name="rating" value="10">
+            <input type="radio" name="rating" value="10"> -->
         </div>
 
         <!-- end of radios -->
         <div id="user-input">
-            <input type="text" placeholder="review by...">
-            <textarea name="review" id="review-reason" placeholder="reason for review.." rows="3"></textarea>
+            <input type="text" placeholder="review by..." class="secondary-font" [(ngModel)]="reviewerName" name="reviewerName">
+            <textarea name="review" id="review-reason" placeholder="reason for review.." rows="3" class="secondary-font" [(ngModel)]="review" name="review"></textarea>
         </div>
 
-        <button class="my-box-shadow">Submit</button>
+        <button class="my-box-shadow " type="submit" >Submit</button>
 
     </form>
 </section>

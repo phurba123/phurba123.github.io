@@ -12,6 +12,8 @@ export class FoodService {
   
   private imageInfoMethod="flickr.photos.getInfo";
 
+  private photos:any;
+
   constructor(private http:HttpClient) { }
 
   public getImages(pageNo:number)
@@ -19,7 +21,7 @@ export class FoodService {
     console.log('inside service : getImages()');
     let currentUrl=`${this.url}&method=${this.photoSearchMethod}&api_key=${this.apiKey}&text=food&per_page=30&page=${pageNo}`
 
-    return this.http.get(currentUrl);
+    return this.http.get(currentUrl)
   }
 
   //getting single image info
@@ -28,12 +30,6 @@ export class FoodService {
     let currentUrl=`${this.url}&method=${this.imageInfoMethod}&api_key=${this.apiKey}&photo_id=${imageId}`;
     return this.http.get(currentUrl);
   }
-
-  // public getTemp()
-  // {
-  //   return 'phursang';
-  // }
-
 
 
 

@@ -7,3 +7,8 @@
     padding: 2vh 0 0 1vw;
     font-size: 24px;
 }
+
+#nav-brand
+{
+    font-family:  'Noto Sans JP', sans-serif;
+}
